@@ -1,11 +1,11 @@
-﻿#credit: https://www.petervanderwoude.nl/post/divide-a-collection-into-multiple-smaller-collections-in-configmgr-2012-via-powershell/
+﻿#< Splits a large collection up into smaller into $n devices per collection.
 
 $CollectionName = "Collection Exact Name"
 
 #$Devices = Get-CMDevice -CollectionName $CollectionName
-$Devices = 80
+$Devices = 80          #Used for testing. Dont have sccm at home, so cant query/test.
 $NumberOfDevices = $Devices.Count
-$NumberOfDevicesPerCollection = "10"
+$n = "10"
     [math]::ceiling($NumberOfDevices / $NummberOfCollections)
 
 
