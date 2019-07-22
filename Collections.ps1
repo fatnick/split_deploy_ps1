@@ -1,9 +1,11 @@
 ﻿#< Splits a large collection up into smaller into $n devices per collection.
-
+ # this will be the first step out of 3.
+ #>
+ 
 $CollectionName = "Collection Exact Name"
 
-#$Devices = Get-CMDevice -CollectionName $CollectionName
-$Devices = 80          #Used for testing. Dont have sccm at home, so cant query/test.
+#$Devices = Get-CMDevice -CollectionName $CollectionName        #Uncomment when connected to SCCM
+$Devices = 80                                                   #Used for testing at home with no connection to SCCM.
 $NumberOfDevices = $Devices.Count
 $n = "10"
     [math]::ceiling($NumberOfDevices / $NummberOfCollections)
