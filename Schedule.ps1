@@ -1,8 +1,15 @@
-﻿# Create deployment for the task sequence (available 01.09.2013 08:00, enforced 25.12.2015 17:00, not overriding maintenance window)
+<# Ttemplate for how to create a New-CMSchedule powershell object, and does some formatting for wmi\locale and checks logic.
+ As an example will create a create deployment for a SCCM task sequence (available 01.09.2013 08:00, enforced 25.12.2015 17:00, not overriding maintenance window).
+ Deployment script can be declared as a variable, and should work simliarly for apps, programs, update packages as it does here for task sequence:
+ # Example: $Deployment = Start-CMTaskSequenceDeployment -CollectionName $Collection -TaskSequencePackageId $TaskSequenceID -DeployPurpose Required -DeploymentAvailableDay $AvailableDateFormat -DeploymentAvailableTime $AvailableTime -Schedule $Schedule -RerunBehavior RerunIfFailedPreviousAttempt -AllowUsersRunIndependently $True
+ #>
+
+#Declare variables DD.MM.YYYY
 $AvailableDate = "20.07.2019"
 $AvailableTime = "08:00"
 $EnforcementDate = "20.07.2019"
 $EnforcementTime = "09:00"
+$Deplyment = "Your deploy script here "
 
 # Format available date
 Write-Host "AvailableDate  is $AvailableDate"
