@@ -1,6 +1,7 @@
 <# Breaks a $CollectionName up into chunks by $Count with number of devices named "$CollectionName-Group1", then creates a deployment of $TaskSequenceID starting at $StartDate 
 and $StartTime with $DelayMinute intervals.
 $DeploymentScript = Start-CMTaskSequenceDeployment -CollectionName $CollectionName -TaskSequencePackageId $TaskSequenceID -DeployPurpose Required -DeploymentAvailableDay $AvailableDateFormat -DeploymentAvailableTime $AvailableTime -Schedule $Schedule -RerunBehavior RerunIfFailedPreviousAttempt -AllowUsersRunIndependently $False -SendWakeupPacket $true -DeploymentExpireTime $StartDate.adddays(1) -SystemRestart $true -SoftwareInstallation $true
+This is the full script that contains all the parts 1) SplitCollections + 2) ScheduleDeployment + 3) CreateDeployment, but right now I have left out SpliCollection step, and need to finalise the for loop to execute on each collection.
 #>
 
 #Declare variables
