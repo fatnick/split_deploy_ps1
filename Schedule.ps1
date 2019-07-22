@@ -75,7 +75,8 @@ Else {
 	Exit
 }
 
-<# Create deployment
+<# Create deployment. NOt doing this, as this is just the schedule step.
+
 $Schedule = New-CMSchedule -Nonrecurring -Start $DeployEnforcementDateTime
 Try {
     $Deployment = Start-CMTaskSequenceDeployment -CollectionName $Collection -TaskSequencePackageId $TaskSequenceID -DeployPurpose Required -DeploymentAvailableDay $AvailableDateFormat -DeploymentAvailableTime $AvailableTime -Schedule $Schedule -RerunBehavior RerunIfFailedPreviousAttempt -AllowUsersRunIndependently $True
@@ -85,5 +86,4 @@ Catch {
 	Write-Host "Error - Exception caught in creating deployment : $error[0]"
     Exit
 } 
-
 #>
