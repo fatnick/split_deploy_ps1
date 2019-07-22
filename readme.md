@@ -7,7 +7,8 @@ The main Script will execute all the steps, but ive broken it up into steps as I
 2. Create a schedule  based on start time and defined interval
 3. Deploy the task seqquence to each collection, based on the schedule.
 
-----------------------
+---------------------- Snippet--------
+
 <# Breaks a $CollectionName up into chunks by $Count with number of devices named "$CollectionName-Group1", then creates a deployment of $TaskSequenceID starting at $StartDate and $StartTime with $DelayMinute intervals.
 
 Example of deploymnet script used:
@@ -22,8 +23,4 @@ $TaskSequenceID = "DC10000C"  #as seen by you SCCM server
 $StartDate = "30.12.2019" #formatted for your locale for wmi tinme format
 $StartTime = "17:00"          #formatted for your time
 $DelayMinutes = "60"
-# Create deployment for the task sequence (available 01.09.2013 08:00, enforced 25.12.2015 17:00, not overriding maintenance window)
-$AvailableDate = $StartDate
-$AvailableTime = "08:00"
-$EnforcementDate = $StartDate
-$EnforcementTime = "17:01" #must be at least 1 min after available time
+
