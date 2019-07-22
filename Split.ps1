@@ -23,4 +23,4 @@
             $NumberOfDevicesPerCollection = [math]::ceiling($NumberOfDevicesLeft / $NummberOfCollectionsLeft)
         }
     }
-}
+} 
