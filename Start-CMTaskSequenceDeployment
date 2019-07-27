@@ -1,0 +1,31 @@
+<#Start-CMTaskSequenceDeployment [-InputObject] <IResultObject> [-CollectionName <String>]
+ [-CollectionId <String>] [-Collection <IResultObject>] [-Comment <String>]
+ [-DeployPurpose <DeployPurposeType>] [-SendWakeupPacket <Boolean>] [-UseMeteredNetwork <Boolean>]
+ [-Availability <MakeAvailableToType>] [-DeploymentAvailableDay <DateTime>]
+ [-DeploymentAvailableTime <DateTime>] [-DeploymentAvailableDateTime <DateTime>]
+ [-UseUtcForAvailableSchedule <Boolean>] [-DeploymentExpireDay <DateTime>] [-DeploymentExpireTime <DateTime>]
+ [-DeploymentExpireDateTime <DateTime>] [-UseUtcForExpireSchedule <Boolean>]
+ [-ScheduleEvent <ScheduleEventType[]>] [-Schedule <IResultObject[]>] [-RerunBehavior <RerunBehaviorType>]
+ [-RunFromSoftwareCenter <Boolean>] [-ShowTaskSequenceProgress <Boolean>] [-SoftwareInstallation <Boolean>]
+ [-SystemRestart <Boolean>] [-PersistOnWriteFilterDevice <Boolean>] [-InternetOption <Boolean>]
+ [-PercentSuccess <Int32>] [-AlertDay <DateTime>] [-AlertTime <DateTime>] [-AlertDateTime <DateTime>]
+ [-PercentFailure <Int32>] [-DeploymentOption <DeploymentOptionType>] [-AllowSharedContent <Boolean>]
+ [-AllowFallback <Boolean>] [-PassThru] [-DisableWildcardHandling] [-ForceWildcardHandling] [-WhatIf]
+ [-Confirm] [<CommonParameters>]#>
+
+# Collection
+$CollectionName = "Broome-Split3"
+ 
+# Task Sequence
+$TaskSequenceID = "DC10000C"
+
+# Create deployment for the task sequence (available 01.09.2013 08:00, enforced 25.12.2015 17:00, not overriding maintenance window)
+$AvailableDate = "27/07/2019"
+$AvailableDateTime = (get-date -Hour 16 -Minute 00 -Second 0)
+$ExpireTime = (get-date).addDays(1)
+$StartDateTime = $AvailableDateTime
+
+#$Schedule = New-CMSchedule -Start "01/01/2016 11:00 PM" -RecurInterval Days -RecurCount 1
+$Schedule = New-CMSchedule -Start $AvailableDateTime.adddays(0) -Nonrecurring
+
+Start-CMTaskSequenceDeployment -CollectionName $CollectionName -TaskSequencePackageId $TaskSequenceID -DeployPurpose Required -DeploymentAvailableDateTime $AvailableDateTime -Schedule $Schedule -RerunBehavior RerunIfFailedPreviousAttempt -AllowUsersRunIndependently $False -SendWakeupPacket $true -DeploymentExpireDateTime $ExpireTime -SystemRestart $true -SoftwareInstallation $true
