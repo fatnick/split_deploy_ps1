@@ -1,0 +1,59 @@
+eah so if I run your original code it is throwing an error of Method invocation failed because [System.String] does not contain a method named 'AddHours'. It’s because you are trying to increment a string. You need to cast it as a [datetime] prior to adding to it. I cast it as a datetime in:
+
+(Get-Date "$($StartDate + " " + $StartTime)").AddHours(-1)
+
+ 
+
+As such I didn’t need to use [datetime] in [datetime]$AdjustedStart.AddHours($IncrementedDelay), I was just lazy.
+
+ 
+
+ 
+
+Is this more it? You want to create a new collection name (incremented by 1) and increment the start time by one as well? If I understand what you want it’s a bit of juggling. Can drop the date bit in the output and just do time if you prefer pretty easily just change Write-Host "$($CollectionName) $($i+1): $(get-date $StartTime -format t)".  
+
+ 
+
+ 
+
+$CollectionName = "Collection Name"
+
+$DevicesPerCollection = 8
+
+$TaskSequenceID = "DC10000C"  #as seen by you SCCM server
+
+$StartDate = "30.12.2019" #formatted for your locale for wmi tinme format
+
+$StartTime = "17:00:00"
+
+$AdjustedStart = (Get-Date "$($StartDate + " " + $StartTime)").AddHours(-1)
+
+$DelayHours = 1
+
+For ($i = 0; $i -lt $DevicesPerCollection; $i++) {
+
+    $IncrementedDelay = $DelayHours + $i
+
+    $StartTime = $AdjustedStart.AddHours($IncrementedDelay)
+
+    Write-Host "$($CollectionName) $($i+1): $StartTime"
+
+}
+
+ 
+
+Collection Name 1: 12/30/2019 17:00:00
+
+Collection Name 2: 12/30/2019 18:00:00
+
+Collection Name 3: 12/30/2019 19:00:00
+
+Collection Name 4: 12/30/2019 20:00:00
+
+Collection Name 5: 12/30/2019 21:00:00
+
+Collection Name 6: 12/30/2019 22:00:00
+
+Collection Name 7: 12/30/2019 23:00:00
+
+Collection Name 8: 12/31/2019 00:00:00
